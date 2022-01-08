@@ -13,13 +13,14 @@
                             class="form control" 
                             placeholder="Quantity"
                             v-model="quantity"
-                            min="1">
+                            min="1"
+                            :class="{danger: insufficientQuantity}">
                 </div>
                 <div class="pull-right">
                     <button class="btn btn-success"
                             @click.prevent="sellStock"
-                            :disabled="quantity <= 0"
-                            >Sell</button>
+                            :disabled="quantity <= 0 || insufficientQuantity"
+                            >{{ insufficientQuantity ? 'Not enough' : 'Sell'}}</button>
                 </div>
             </div>
         </div>
@@ -33,9 +34,17 @@ export default {
     props: [
         'stock'
     ],
-    data(){
+    data() {
         return {
             quantity: 0
+        }
+    },
+    computed: {
+        funds() {
+            this.$store.getters.funds;
+        },
+        insufficientQuantity (){
+            return this.quantity < this.stock.quantity;
         }
     },
     methods: {
@@ -56,4 +65,7 @@ export default {
 </script>
 
 <style scoped>
+    .danger {
+        border: 1px solid red;
+    }
 </style>
