@@ -1,4 +1,5 @@
 import stocks from "../../data/stocks";
+import api from '../../data/stocks'
 
 const state = { 
     funds: 100000,
