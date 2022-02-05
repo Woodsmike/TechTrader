@@ -1,9 +1,9 @@
-import stocks from "../../data/stocks";
-import api from '../../data/stocks'
+import stateStocks from "../modules/stocks";
+const stocks = stateStocks;
 
 const state = { 
     funds: 100000,
-    stocks: []
+    stocks: stocks.state.stocks
 };
 
 const mutations = {
